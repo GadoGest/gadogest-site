@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Paleta do pitch GadoGest */
+@theme inline {
+  --color-mata: var(--mata);
+  --color-mata-2: var(--mata-2);
+  --color-creme: var(--creme);
+  --color-areia: var(--areia);
+  --color-pasto: var(--pasto);
+  --color-broto: var(--broto);
+  --color-couro: var(--couro);
+  --color-tinta: var(--tinta);
+  --color-cinza: var(--cinza);
+
+  --color-background: var(--creme);
+  --color-foreground: var(--tinta);
+  --color-border: var(--linha);
+
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-gelasio);
+}
+
+:root {
+  color-scheme: light;
+  --mata: #12332a;     /* verde-escuro */
+  --mata-2: #1a4236;   /* verde-escuro mais claro */
+  --creme: #f5f2ea;    /* fundo */
+  --areia: #e6dccb;    /* bege */
+  --pasto: #3f8f4f;    /* verde médio */
+  --broto: #8fd19a;    /* verde claro */
+  --couro: #a9764a;    /* marrom */
+  --tinta: #12332a;    /* texto */
+  --cinza: #5b6660;    /* texto secundário */
+  --linha: #ddd6c6;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@keyframes devagar-zoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+.zoom-lento {
+  animation: devagar-zoom 14s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Entrada da abertura, sem depender de JavaScript */
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes surgir-esq {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes surgir-dir {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: none; }
+}
+.surgir { animation: surgir 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.surgir-esq { animation: surgir-esq 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.surgir-dir { animation: surgir-dir 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes flutuar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.flutuar {
+  animation: flutuar 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .zoom-lento, .flutuar, .surgir, .surgir-esq, .surgir-dir { animation: none; }
+}

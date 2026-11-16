@@ -2,11 +2,23 @@
 
 import { useState } from 'react'
 import { Check, Copy, Handshake, Mail, MessageCircle } from 'lucide-react'
-import { ASSUNTO_EMAIL, EMAIL, MENSAGENS, WHATSAPP_EXIBIR, linkWhatsApp } from '@/lib/contato'
+import { ASSUNTO_EMAIL, EMAIL, MENSAGENS, WHATSAPP_EXIBIR, linkGmail, linkWhatsApp } from '@/lib/contato'
 import { Eyebrow, Reveal } from './reveal'
 
 export function Contato() {
   const [copiado, setCopiado] = useState(false)
+  const [avisoEmail, setAvisoEmail] = useState(false)
+
+  // O link mailto: só abre se o aparelho tiver um programa de e-mail configurado.
+  // Por isso, ao clicar, o endereço também é copiado e aparece a opção de escrever pelo Gmail.
+  async function contatoEmail() {
+    setAvisoEmail(true)
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+    } catch {
+      /* se a cópia for bloqueada, o aviso ainda mostra o endereço e o link do Gmail */
+    }
+  }
 
   async function copiar() {
     try {
@@ -63,11 +75,27 @@ export function Contato() {
             </div>
             <a
               href={`mailto:${EMAIL}?subject=${ASSUNTO_EMAIL}`}
+              onClick={contatoEmail}
               className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-creme/30 px-7 py-3.5 text-base font-semibold text-creme transition-colors hover:bg-creme/10 sm:w-auto"
             >
               <Mail className="size-5" />
-              Prefiro e-mail
+              Contato pelo e-mail
             </a>
+            {avisoEmail && (
+              <p role="status" className="mt-3 max-w-lg text-sm leading-relaxed text-creme/80">
+                Se o seu e-mail não abriu, o endereço <strong className="text-creme">{EMAIL}</strong> foi
+                copiado. Cole no seu e-mail ou{' '}
+                <a
+                  href={linkGmail()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-broto underline underline-offset-4 hover:text-creme"
+                >
+                  escreva pelo Gmail
+                </a>
+                .
+              </p>
+            )}
           </Reveal>
 
           <Reveal delay={0.15} className="mt-6 space-y-2 text-base text-creme/80">

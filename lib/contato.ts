@@ -11,6 +11,11 @@ export function linkWhatsApp(mensagem: string) {
   return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`
 }
 
+/** Tela de novo e-mail do Gmail (no navegador), já com destinatário e assunto */
+export function linkGmail() {
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${ASSUNTO_EMAIL}`
+}
+
 export const MENSAGENS = {
   geral: 'Olá! Vi o site do GadoGest e quero saber mais.',
   produtor: 'Olá! Sou produtor e quero saber mais sobre o GadoGest.',

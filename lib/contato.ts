@@ -14,7 +14,7 @@ export function linkWhatsApp(mensagem: string) {
 export const MENSAGENS = {
   geral: 'Olá! Vi o site do GadoGest e quero saber mais.',
   produtor: 'Olá! Sou produtor e quero saber mais sobre o GadoGest.',
-  parceiro: 'Olá! Vi o pitch do GadoGest e quero conversar sobre investimento ou parceria.',
+  parceiro: 'Olá! Tenho interesse em investir ou firmar uma parceria com o GadoGest. Podemos agendar uma conversa?',
   investimento: 'Olá! Tenho interesse em investir no GadoGest e gostaria de conversar.',
   piloto: 'Olá! Quero que minha fazenda seja piloto do GadoGest.',
   distribuicao: 'Olá! Quero ser parceiro GadoGest e levar o sistema aos produtores da minha rede.',

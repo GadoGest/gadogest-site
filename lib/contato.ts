@@ -1,6 +1,6 @@
 // Contatos do GadoGest, usados no site inteiro
 
-export const EMAIL = 'gadogest@gmail.com'
+export const EMAIL = 'contato@gadogest.com.br'
 export const ASSUNTO_EMAIL = encodeURIComponent('Quero saber mais sobre o GadoGest')
 
 export const WHATSAPP_EXIBIR = '(66) 99918-7247'

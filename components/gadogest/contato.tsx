@@ -2,21 +2,21 @@
 
 import { useState } from 'react'
 import { Check, Copy, Handshake, Mail, MessageCircle } from 'lucide-react'
-import { ASSUNTO_EMAIL, EMAIL, MENSAGENS, WHATSAPP_EXIBIR, linkGmail, linkWhatsApp } from '@/lib/contato'
+import { EMAIL, MENSAGENS, WHATSAPP_EXIBIR, linkGmail, linkWhatsApp } from '@/lib/contato'
 import { Eyebrow, Reveal } from './reveal'
 
 export function Contato() {
   const [copiado, setCopiado] = useState(false)
   const [avisoEmail, setAvisoEmail] = useState(false)
 
-  // O link mailto: só abre se o aparelho tiver um programa de e-mail configurado.
-  // Por isso, ao clicar, o endereço também é copiado e aparece a opção de escrever pelo Gmail.
+  // O botão abre direto o Gmail (nova aba) com destinatário e assunto preenchidos.
+  // Para quem usa outro e-mail, o endereço também é copiado e aparece um aviso.
   async function contatoEmail() {
     setAvisoEmail(true)
     try {
       await navigator.clipboard.writeText(EMAIL)
     } catch {
-      /* se a cópia for bloqueada, o aviso ainda mostra o endereço e o link do Gmail */
+      /* se a cópia for bloqueada, o aviso ainda mostra o endereço */
     }
   }
 
@@ -74,7 +74,9 @@ export function Contato() {
               </a>
             </div>
             <a
-              href={`mailto:${EMAIL}?subject=${ASSUNTO_EMAIL}`}
+              href={linkGmail()}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={contatoEmail}
               className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-creme/30 px-7 py-3.5 text-base font-semibold text-creme transition-colors hover:bg-creme/10 sm:w-auto"
             >
@@ -83,17 +85,8 @@ export function Contato() {
             </a>
             {avisoEmail && (
               <p role="status" className="mt-3 max-w-lg text-sm leading-relaxed text-creme/80">
-                Se o seu e-mail não abriu, o endereço <strong className="text-creme">{EMAIL}</strong> foi
-                copiado. Cole no seu e-mail ou{' '}
-                <a
-                  href={linkGmail()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-broto underline underline-offset-4 hover:text-creme"
-                >
-                  escreva pelo Gmail
-                </a>
-                .
+                O Gmail foi aberto em uma nova aba. Usa outro e-mail? O endereço{' '}
+                <strong className="text-creme">{EMAIL}</strong> já foi copiado, é só colar.
               </p>
             )}
           </Reveal>
